@@ -1,50 +1,32 @@
 ================================
-LANL/CATNAP bnAb cross-reference Scipion plugin
+DEPRECATED: LANL/CATNAP bnAb cross-reference Scipion plugin
 ================================
 
-Scipion framework plugin cross-referencing peptide candidates against
-known HIV broadly-neutralizing-antibody (bnAb) linear epitopes, using the
-local LANL HIV Molecular Immunology Database (+ optional CATNAP
-neutralization potency data, Yoon et al. 2015).
+This plugin is **deprecated** and pending archival. Following the same
+reasoning applied earlier to ``scipion-chem-bcellepitope``, and review
+feedback from Blanca (CNB Biocomputing unit), this protocol has been
+folded into ``pwchem`` core instead of living in its own plugin: it wraps
+no external tool/binary (pure pandas/csv logic over two local reference
+databases), so it needs no dedicated conda environment and does not
+justify a standalone plugin repo, same class of decision as EpiDope.
 
-The plugin implements a single protocol, ``ProtLANLCATNAPCrossref``, which
-annotates (does **not** filter) every input ROI with a summary of its best
-matching bnAb epitope (``_bnabMatchCount``/``_bnabNeutralizingMatch``/
-``_bnabBestAntibody``/``_bnabBestMatchLength``). Purely informative for
-any pipeline: only relevant when the input is HIV Env, but harmless (zero
-matches) otherwise. The full match detail (every match, not just the
-single best one) is persisted to ``extra/bnab_crossref.csv``.
-
-This plugin wraps **no external tool**: pure pandas/csv logic over two
-local reference databases, not bundled with the plugin (LANL/CATNAP's own
-terms of use do not clearly permit redistribution -- download once,
-reference by path in ``scipion.conf``, same convention as every other
-academic dataset/tool in this project).
-
-================================
-Manual setup
+Where it moved to
 ================================
 
-1. Download the LANL HIV Molecular Immunology DB's ``ab_all.csv`` from
-   https://www.hiv.lanl.gov/content/immunology/ (required).
-2. Optionally, download CATNAP's ``abs_YYYY-MM-DD.txt`` from
-   https://www.hiv.lanl.gov/components/sequence/HIV/neutralization/ (used
-   only to append neutralization potency/breadth when available).
-3. In ``scipion.conf``, set:
+``ProtLANLCATNAPCrossref`` now lives in ``pwchem``
+(``pwchem/protocols/Sequences/protocol_lanlcatnap_crossref.py``, same
+place as EpiDope). Configuration is unchanged: set ``LANL_AB_ALL_PATH``
+(required) and ``CATNAP_ABS_PATH`` (optional) in ``scipion.conf`` -- see
+that plugin's own docs for the manual download steps (LANL HIV Molecular
+Immunology DB + optional CATNAP neutralization data). This stays a manual
+download, unlike most other tools recently migrated to auto-install:
+verified 2026-07-28 that hiv.lanl.gov has no stable download URL for its
+antibody DB (only an interactive search form) and explicitly states it is
+increasing its blocking of automated traffic.
 
-.. code-block::
+Status
+================================
 
-      LANL_AB_ALL_PATH = <path to ab_all.csv>
-      CATNAP_ABS_PATH = <path to abs_YYYY-MM-DD.txt>   # optional
-
-===================
-Install this plugin
-===================
-
-**Developer's version**
-
-.. code-block::
-
-            git clone https://github.com/Lvera-code/scipion-chem-lanlcatnap.git
-            cd scipion-chem-lanlcatnap
-            scipion3 installp -p . --devel
+Not yet PR'd upstream to ``scipion-chem``/pwchem's real GitHub org (same
+status as the EpiDope migration this follows). Until then, this
+repository is kept around for reference only and should not be installed.

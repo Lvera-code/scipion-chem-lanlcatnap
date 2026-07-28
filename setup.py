@@ -19,8 +19,8 @@ with open('requirements.txt') as f:
 
 setup(
     name='scipion-chem-lanlcatnap',
-    version='0.1.0',
-    description='Scipion framework plugin cross-referencing peptides against known HIV bnAb epitopes (LANL/CATNAP)',
+    version='0.2.0',
+    description='DEPRECATED, see README.rst - protocol moved to scipion-chem (pwchem core)',
     long_description=long_description,
     url='https://github.com/Lvera-code/scipion-chem-lanlcatnap',
     author='Enzo Sierra',

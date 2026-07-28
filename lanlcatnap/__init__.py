@@ -21,53 +21,22 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-This package contains a protocol for cross-referencing peptide candidates
-against known HIV broadly-neutralizing-antibody (bnAb) linear epitopes,
-using the local LANL Immunology DB (+ optional CATNAP neutralization data).
-"""
+"""DEPRECATED: this plugin has been folded into pwchem core, see README.rst.
 
-import os
+Kept only so the entry point still resolves for anyone with it already
+installed; it no longer defines any protocol. This package is pending
+archival once the migration is validated.
+"""
 
 from pwchem import Plugin as pwchemPlugin
 
-from .constants import LANLCATNAP_DIC, NOINSTALL_WARNING
-
-_references = ['Yoon2015']
-
 
 class Plugin(pwchemPlugin):
-    """This plugin wraps no external tool/binary: pure pandas logic over
-    two local reference databases, never auto-downloaded (LANL/CATNAP's
-    own terms of use do not clearly permit redistribution). See
-    ``validateInstallation`` and ``README.rst`` for the manual setup."""
 
     @classmethod
     def _defineVariables(cls):
-        cls._defineVar(LANLCATNAP_DIC['ab_all_path'], '')
-        cls._defineVar(LANLCATNAP_DIC['catnap_abs_path'], '')
-
-    @classmethod
-    def defineBinaries(cls, env):
-        """No-op: see class docstring."""
         pass
 
     @classmethod
-    def validateInstallation(cls):
-        """Check that this plugin's requirements are met. Returns a list of
-        actionable error messages, empty if the installation is correct.
-        CATNAP is optional (checked only if configured): only the LANL
-        ab_all.csv path is required."""
-        errors = []
-
-        abAllPath = cls.getVar(LANLCATNAP_DIC['ab_all_path'])
-        if not abAllPath or not os.path.isfile(abAllPath):
-            errors.append(f"LANL_AB_ALL_PATH is not set or does not exist: '{abAllPath}'.")
-
-        catnapPath = cls.getVar(LANLCATNAP_DIC['catnap_abs_path'])
-        if catnapPath and not os.path.isfile(catnapPath):
-            errors.append(f"CATNAP_ABS_PATH is set but does not exist: '{catnapPath}'.")
-
-        if errors:
-            errors.append(NOINSTALL_WARNING)
-        return errors
+    def defineBinaries(cls, env):
+        pass
