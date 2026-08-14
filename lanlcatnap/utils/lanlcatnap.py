@@ -1,8 +1,7 @@
 """Cross-referencing candidates against known bnAb epitopes (LANL Immunology DB + CATNAP), 100% local.
 
-Reimplemented (not imported) from the standalone project's
-``lanl_catnap_engine.py``. Pure pandas/csv logic, no subprocess: this
-plugin wraps no external tool, only two local reference databases.
+Pure pandas/csv logic, no subprocess: this plugin wraps no external tool,
+only two local reference databases.
 
 Does NOT do structural alignment or HXB2 coordinate mapping: candidate
 linear sequences are compared directly against ``ab_all.csv``'s reported
